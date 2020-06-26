@@ -1,0 +1,7 @@
+lol=msgbox("hahahahahahah",4,"invece ti distruggo sul serio")
+lol=msgbox("sei stato hackerato",10,"HACKER")
+lol=msgbox("ora ti distruggo!!!!!!!!",10,"HACKER")
+lol=msgbox("distruzione in 3",10,"HACKER")
+lol=msgbox("distruzione in 2",10,"HACKER")
+lol=msgbox("distruzione in 1",10,"HACKER")
+lol=msgbox("arrivederci e buona giornata",10,"distruzione completata")
