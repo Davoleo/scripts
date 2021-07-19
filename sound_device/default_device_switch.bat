@@ -1,6 +1,5 @@
 :: Written by Davoleo : on 19/07/2021
-:: use nircmd.exe to change default communication device between the two I use
-
+:: uses nircmd.exe to change default communication device between the two I use
 if exist "headphones" (
     nircmd.exe setdefaultsounddevice "Speakers" 1
     nircmd.exe setdefaultsounddevice "Speakers" 2

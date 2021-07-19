@@ -1,3 +1,4 @@
-
 # default_device_switch flag file
-headphones
+sound_device/headphones
+
+*.exe
