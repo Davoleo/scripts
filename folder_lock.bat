@@ -1,7 +1,7 @@
 Quote:
 Quote: cls
 @ECHO OFF
-title Folder Private
+title Folder Lock
 if EXIST "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}" goto UNLOCK
 if NOT EXIST Private goto MDLOCKER
 :CONFIRM
@@ -21,7 +21,7 @@ goto End
 :UNLOCK
 echo Enter password to unlock folder
 set/p "pass=>"
-if NOT %pass%== password goto FAIL
+if NOT %pass%== your_password goto FAIL
 attrib -h -s "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}"
 ren "Control Panel.{21EC2020-3AEA-1069-A2DD-08002B30309D}" Private
 echo Folder Unlocked successfully
