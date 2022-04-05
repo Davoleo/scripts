@@ -172,10 +172,9 @@ function buildLanguagesSection(owner, repo) {
     'use strict';
 
     //Selects the box element that contains files and folders on the repo page
-    //(this selector was obtained from browser inspector hence why it's kinda crazy and will probably break super fast)
-    const mainContent = document.querySelector("#repo-content-pjax-container > div > div.Layout.Layout--flowRow-until-md.Layout--sidebarPosition-end.Layout--sidebarPosition-flowRow-end > div.Layout-main > div.Box.mb-3");
+    const mainContent = document.querySelector(".file-navigation");
     //The original language bar in the sidebar
-    const originalLangBar = document.querySelector("div.Layout-sidebar span.Progress");    
+    const originalLangBar = document.querySelector("div.Layout-sidebar span.Progress");
 
     //array that is generated from the tab URL, it's structured this way: ["", "<repo_owner>", "<repo_name>"]
     const ownerRepo = window.location.pathname.split('/');
@@ -199,7 +198,7 @@ function buildLanguagesSection(owner, repo) {
 
             //Build the new custom lang stats
             const languageSection = buildLanguagesSection(ownerRepo[1], ownerRepo[2]);
-            mainContent.insertAdjacentElement('beforebegin', languageSection);
+            mainContent.insertAdjacentElement('afterend', languageSection);
             //^ inserts our custom language stats before the box containing directories and files
 
             //GM_log(langColorsMap);
