@@ -1,18 +1,19 @@
 // ==UserScript==
 // @name Linguist Expand
-// @namespace Davoleo
+// @namespace https://davoleo.net
 // @author Davoleo
-// @homepage https://davoleo.net
+// @homepage https://github.com/Davoleo/scripts/tree/master/linguist_expand
 // @description Expands Github's Linguist language list on repositories to show every language instead of hiding the small percentage under "Other"
+// @contributionURL https://davoleo.net/donate
 // @match https://github.com/*
-// @require https://raw.githubusercontent.com/nodeca/js-yaml/master/dist/js-yaml.js
+// @require https://unpkg.com/js-yaml@4.1.0/dist/js-yaml.min.js
 // @resource languageColors https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml
 // @grant GM_getResourceText
 // @grant GM_log
 // @grant GM_xmlhttpRequest
 // @connect api.github.com
 // @run-at document-idle
-// @version 1.0.0
+// @version 1.0.1
 // @license MIT
 // @noframes
 // ==/UserScript==
