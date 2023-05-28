@@ -8,7 +8,8 @@ async function main() {
 
   const contextCopyImageItem = new Item("Copy Image Link", async ([uriStr]) => {
     const uri = URI.fromString(uriStr);
-    const id = uri?.id;
+    const id = uri.id;
+
     if (!uri)
       return;
     switch (uri.type) {
@@ -21,13 +22,18 @@ async function main() {
         const track = await Spicetify.CosmosAsync.get(`https://api.spotify.com/v1/tracks/${id}`);
         sendToClipboard(track.album.name, track.album.images[0].url)
     }
-  }, ([uri]) => URI.isAlbum(uri) || URI.isArtist(uri) || URI.isTrack(uri), 'copy');
+  }, ([uriStr]) => {
+    const uri = URI.fromString(uriStr);
+    //console.log(uri);
+    //console.log("API Image Linker: isAlbum=" + URI.isAlbum(uri) + ", isArtist=" + URI.isArtist(uri) + ", isTrack=" + URI.isTrack(uri))
+    return uri.type === 'artist' || uri.type === 'track' || uri.type === 'album';
+  }, 'copy');
 
   const contextCopyBannerItem = new Item("Copy Banner Link", async ([uriStr]) => {
     const id = URI.fromString(uriStr)?.id;
     if (!id)
       return
-    console.log(`https://api.spotify.com/v1/artist/${id}`);
+    //console.log(`Banner Retriever - Artist API link: https://api.spotify.com/v1/artist/${id}`);
     const artist = await Spicetify.CosmosAsync.get(`https://api.spotify.com/v1/artists/${id}`);
     const bannerElem = document.querySelector('.under-main-view .main-entityHeader-background.main-entityHeader-gradient') as HTMLElement;
     if (bannerElem !== null) {
@@ -35,13 +41,18 @@ async function main() {
     }
     else
       Spicetify.showNotification("「" + artist.name + "」 banner not found!")
-  }, ([uri]) => {
-    if (!Spicetify.URI.isArtist(uri))
+  }, ([uriStr]) => {
+    const uri = URI.fromString(uriStr);
+    if (uri.type !== 'artist') {
+      //console.log("Banner Retriever: not an artist link!")
       return false;
+    }
     const artistSection = document.querySelector('.main-view-container__scroll-node-child section');
+    //console.log("Banner Retriever - Artist Section: " + artistSection)
     if (artistSection !== null) {
       const dataTestUri = artistSection.getAttribute("data-test-uri");
-      const id = URI.fromString(uri)?.id;
+      const id = uri.id;
+      //console.log("Banner Retriever - dataTestUri: " + dataTestUri)
       return dataTestUri !== null && id === dataTestUri.substring("spotify:artist:".length);
     }
     return false;
