@@ -30,7 +30,7 @@
         return;
     }
 
-    const epDigits = episodeCountElem.textContent.length;
+    const epDigits = Math.max(2, episodeCountElem.textContent.length);
     const epCount = Number(episodeCountElem.textContent);
     if (epCount) {
         const downloadElem = document.querySelector("div.widget.downloads #alternativeDownloadLink");
