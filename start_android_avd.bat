@@ -1,7 +1,7 @@
 ::Coded By Davoleo
 
 @ECHO OFF
-cd /d D:\Programmi\Android\emulator
+cd /d %ANDROID_HOME%\tools
 
 echo Requesting Admin Privileges...
 if not "%1"=="am_admin" (powershell start -verb runas '%0' am_admin & exit /b)
