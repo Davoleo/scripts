@@ -1,0 +1,4 @@
+div[data-testid="tracklist-row"] > div[aria-colindex="3"]::before {
+    content: attr(data-playcount);
+    padding-right: 16px;
+}
