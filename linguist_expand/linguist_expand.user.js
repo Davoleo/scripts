@@ -13,7 +13,7 @@
 // @grant GM_xmlhttpRequest
 // @connect api.github.com
 // @run-at document-idle
-// @version 1.0.1
+// @version 1.0.2
 // @downloadURL https://github.com/Davoleo/scripts/raw/master/linguist_expand/linguist_expand.user.js
 // @updateURL https://github.com/Davoleo/scripts/raw/master/linguist_expand/linguist_expand.user.js
 // @license MIT
@@ -146,7 +146,7 @@ function buildLanguageChip(owner, repo, name, color, percentage) {
 function buildLanguagesSection(owner, repo) {
 
     const languageSection = document.createElement("div");
-    languageSection.classList.add("mb-3");
+    languageSection.classList.add("mb-3", "mt-1");
 
     const bar = document.createElement('span');
     bar.classList.add("Progress", 'mb-2');
@@ -175,7 +175,10 @@ function buildLanguagesSection(owner, repo) {
     'use strict';
 
     //Selects the box element that contains files and folders on the repo page
-    const mainContent = document.querySelector(".file-navigation");
+    const mainContent = document.querySelector(".Box-sc-g0xbh4-0.yfPnm");
+    if (!mainContent)
+        throw Error("mainContent Hook Selector is dead!")
+
     //The original language bar in the sidebar
     const originalLangBar = document.querySelector("div.Layout-sidebar span.Progress");
 
@@ -201,7 +204,7 @@ function buildLanguagesSection(owner, repo) {
 
             //Build the new custom lang stats
             const languageSection = buildLanguagesSection(ownerRepo[1], ownerRepo[2]);
-            mainContent.insertAdjacentElement('afterend', languageSection);
+            mainContent.insertAdjacentElement('beforebegin', languageSection);
             //^ inserts our custom language stats before the box containing directories and files
 
             //GM_log(langColorsMap);
