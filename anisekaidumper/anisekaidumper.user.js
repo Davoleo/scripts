@@ -12,6 +12,8 @@
 // @grant GM_notification
 // @run-at document-idle
 // @version 1.0.1
+// @downloadURL https://github.com/Davoleo/scripts/raw/master/anisekaidumper/anisekaidumper.user.js
+// @updateURL https://github.com/Davoleo/scripts/raw/master/anisekaidumper/anisekaidumper.user.js
 // @license MIT
 // @noframes
 // ==/UserScript==

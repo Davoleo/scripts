@@ -14,6 +14,8 @@
 // @connect api.github.com
 // @run-at document-idle
 // @version 1.0.1
+// @downloadURL https://github.com/Davoleo/scripts/raw/master/linguist_expand/linguist_expand.user.js
+// @updateURL https://github.com/Davoleo/scripts/raw/master/linguist_expand/linguist_expand.user.js
 // @license MIT
 // @noframes
 // ==/UserScript==
