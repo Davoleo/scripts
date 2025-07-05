@@ -35,7 +35,7 @@ async function main() {
       return
     //console.log(`Banner Retriever - Artist API link: https://api.spotify.com/v1/artist/${id}`);
     const artist = await Spicetify.CosmosAsync.get(`https://api.spotify.com/v1/artists/${id}`);
-    const bannerElem = document.querySelector('.under-main-view .main-entityHeader-background.main-entityHeader-gradient') as HTMLElement;
+    const bannerElem = document.querySelector('.before-scroll-node>div>div:first-child') as HTMLElement;
     if (bannerElem !== null) {
       sendToClipboard(artist.name, bannerElem.style.backgroundImage.substring("url(\"".length, bannerElem.style.backgroundImage.length-2))
     }
