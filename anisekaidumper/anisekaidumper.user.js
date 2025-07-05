@@ -5,7 +5,7 @@
 // @homepage https://github.com/Davoleo/scripts/tree/master/anisekaidumper
 // @description Userscript for AnimeWorld that allows to dump-copy all the download links of an anime entry to the clipboard for external use.
 // @contributionURL https://davoleo.net/donate
-// @match https://www.animeworld.so/play/*
+// @match https://www.animeworld.ac/play/*
 // @grant GM_log
 // @grant GM_registerMenuCommand
 // @grant GM_setClipboard
