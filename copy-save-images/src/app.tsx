@@ -64,8 +64,15 @@ async function main() {
 
 function sendToClipboard(name: string, imageUrl: string) {
   if (imageUrl) {
-    Spicetify.showNotification("Copied: 「" + name + "」 image!")
-    Spicetify.Platform.ClipboardAPI.copy(imageUrl)
+    if (Spicetify.Platform.ClipboardAPI) {
+      Spicetify.Platform.ClipboardAPI.copy(imageUrl);
+      Spicetify.showNotification("Copied: 「" + name + "」 image!")
+    }
+    else if (navigator?.clipboard) {
+      navigator.clipboard.writeText(imageUrl)
+      .then(() => Spicetify.showNotification("Copied: 「" + name + "」 image!"))
+      .catch(() => Spicetify.showNotification("Image copying failed! (unsupported)"))
+    }
   }
 }
 

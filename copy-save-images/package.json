@@ -1,17 +1,17 @@
 {
   "name": "copy-save-images",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "build": "spicetify-creator",
     "build-local": "spicetify-creator --out=dist --minify",
     "watch": "spicetify-creator --watch",
-    "reload": "spicetify update -el enable-devtools"
+    "reload": "spicetify refresh -e"
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
     "spicetify-creator": "^1.0.17"
   }
 }
