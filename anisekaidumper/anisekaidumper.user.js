@@ -41,7 +41,7 @@
             return;
         }
         const splitLink = downloadElem.href.split(/\_\d{1,3}/);
-        
+
         GM_registerMenuCommand("Copy-Dump Download Links", function(event) {
 
             if (splitLink.length === 1 && epCount === 1) {
