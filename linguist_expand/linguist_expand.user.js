@@ -13,7 +13,7 @@
 // @grant GM_xmlhttpRequest
 // @connect api.github.com
 // @run-at document-idle
-// @version 1.0.2
+// @version 1.0.3
 // @downloadURL https://github.com/Davoleo/scripts/raw/master/linguist_expand/linguist_expand.user.js
 // @updateURL https://github.com/Davoleo/scripts/raw/master/linguist_expand/linguist_expand.user.js
 // @license MIT
