@@ -23,6 +23,7 @@
 //Loads languages.yml (from Github's linguist repo) the most updated, official and complete collection of github languages and their colors
 //loaded into a JS object via jsyaml (a library to parse yaml inside of javascript)
 const languages = jsyaml.load(GM_getResourceText('languageColors'));
+//GM_log(languages);
 
 //Contains information about languages and their percentages in the repository
 let langPercentagesMap = {}
@@ -65,7 +66,7 @@ async function retrieveLanguages(user, repo) {
         });
     }
     catch(e) {
-        return null;
+        throw Error("Language retrieval failure!")
     }
 }
 
@@ -175,12 +176,14 @@ function buildLanguagesSection(owner, repo) {
     'use strict';
 
     //Selects the box element that contains files and folders on the repo page
-    const mainContent = document.querySelector(".Box-sc-g0xbh4-0.yfPnm");
+    const mainContent = document.querySelector(".OverviewContent-module__Box__PF75K");
     if (!mainContent)
-        throw Error("mainContent Hook Selector is dead!")
+        throw Error("mainContent Hook Selector is dead! this is a bug, please report")
 
     //The original language bar in the sidebar
-    const originalLangBar = document.querySelector("div.Layout-sidebar span.Progress");
+    const originalLangBar = document.querySelector(".prc-PageLayout-Pane-AyzHK span.Progress");
+    if (!originalLangBar)
+        throw Error("langBar Hook Selector is dead! this is a bug, please report")
 
     //array that is generated from the tab URL, it's structured this way: ["", "<repo_owner>", "<repo_name>"]
     const ownerRepo = window.location.pathname.split('/');
@@ -195,7 +198,6 @@ function buildLanguagesSection(owner, repo) {
                 const total = Object.values(lang_vals).reduce((prev, curr) => prev + curr);
                 //for each language in the object
                 Object.keys(lang_vals).forEach((lang) => {
-                    //
                     langColorsMap[lang] = languages[lang].color;
                     langPercentagesMap[lang] = ((lang_vals[lang] / total) * 100).toFixed(1);
                 });
