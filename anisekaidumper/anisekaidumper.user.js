@@ -19,60 +19,69 @@
 // ==/UserScript==
 
 //MAIN ENTRY POINT
+
+
 (() => {
     'use strict';
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const chunks = 3
+    const timeout = 5000
 
     const titleElem = document.querySelector("h1#anime-title");
     const animeTitle = titleElem.textContent;
 
+
+    const episodesAnchors = document.querySelectorAll("li.episode a");
+    const episodeCount = episodesAnchors.length;
     //Episodes Number
-    const episodeCountElem = document.querySelector("div.widget.info > .widget-body  div.row > dl:nth-child(2) > dd:nth-child(6)");
-    if (!episodeCountElem) {
-        GM_log("episode count element not available!");
+    if (episodeCount == 0) {
+        GM_log("No episodes found.");
         return;
     }
 
-    const epDigits = Math.max(2, episodeCountElem.textContent.length);
-    const epCount = Number(episodeCountElem.textContent);
-    if (epCount) {
-        const downloadElem = document.querySelector("div.widget.downloads #alternativeDownloadLink");
-        if (!downloadElem) {
-            GM_log("direct download link not available!");
-            return;
-        }
-        const splitLink = downloadElem.href.split(/\_\d{1,3}/);
+    GM_registerMenuCommand("Copy-Dump Download Links",async function(event) {
 
-        GM_registerMenuCommand("Copy-Dump Download Links", function(event) {
 
-            if (splitLink.length === 1 && epCount === 1) {
-                GM_setClipboard(downloadElem.href, 'text');
-                GM_notification({
-                    text: "Single DLink copied",
-                    title: "AniSekaiDumper",
-                    timeout: 1500
-                });
+
+        let episodesAnchorArray = Array.from(episodesAnchors.values())
+        let links = ""
+
+        while(episodesAnchorArray.length > 0)
+        {
+            const episodesAnchorChunk = episodesAnchorArray.splice(0, chunks)
+
+            let promises = [];
+
+            for(const episode of episodesAnchorChunk) {
+                const id = episode.getAttribute("data-id")
+                const api = `/api/episode/info?id=${id}&alt=0`
+
+                promises.push(fetch(api).then(res => res.json()))
+
             }
-            else {
-                let links = "";
-                for (let i = 1; i <= epCount; i++) {
-                    links = links + splitLink[0] + '_' + String(i).padStart(epDigits, '0') + splitLink[1] + '\n';
+            Promise.all(promises).then(responses => {
+                for(const response of responses) {
+                    console.log(response.grabber)
+                    links += response.grabber + "\n"
                 }
-                GM_setClipboard(links, "text");
+            })
 
-                if (splitLink.length !== 2)
-                    GM_notification({
-                        text: "Error during link splitting, clipboard might contain broken stuff",
-                        title: "AniSekaiDumper",
-                        timeout: 1500
-                    });
-                else
-                    GM_notification({
-                        text: "DLinks have been dump-copied to clipboard",
-                        title: "AniSekaiDumper",
-                        timeout: 1500
-                    });
-            }
-        }, 'c');
-    }
+            await sleep(timeout)
+        }
+
+        GM_setClipboard(links, "text");
+
+        GM_notification({
+            text: "DLinks have been dump-copied to clipboard",
+            title: "AniSekaiDumper",
+            timeout: 1500
+        });
+
+    }, 'c');
+
 })();
 
